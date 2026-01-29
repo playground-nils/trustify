@@ -5810,6 +5810,7 @@ dependencies = [
  "base64 0.22.1",
  "bytes",
  "encoding_rs",
+ "futures-channel",
  "futures-core",
  "futures-util",
  "h2 0.4.13",
@@ -8100,6 +8101,21 @@ dependencies = [
  "url",
  "utoipa",
  "utoipa-swagger-ui",
+]
+
+[[package]]
+name = "trustify-cli"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "dotenvy",
+ "futures",
+ "indicatif",
+ "reqwest 0.13.2",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.18",
+ "tokio",
 ]
 
 [[package]]
