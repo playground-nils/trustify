@@ -49,7 +49,7 @@ impl MigrationTrait for Migration {
             .get_connection()
             .execute_unprepared(
                 r#"
-                  CREATE INDEX IF NOT EXISTS sbom_covering_published_idx
+                  CREATE INDEX CONCURRENTLY IF NOT EXISTS sbom_covering_published_idx
                   ON sbom (sbom_id) INCLUDE (published)
                   "#,
             )
@@ -64,7 +64,7 @@ impl MigrationTrait for Migration {
             .get_connection()
             .execute_unprepared(
                 r#"
-                  CREATE INDEX IF NOT EXISTS sbom_node_node_id_covering_idx
+                  CREATE INDEX CONCURRENTLY IF NOT EXISTS sbom_node_node_id_covering_idx
                   ON sbom_node (node_id) INCLUDE (sbom_id, name)
                   "#,
             )
@@ -77,13 +77,13 @@ impl MigrationTrait for Migration {
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .get_connection()
-            .execute_unprepared("DROP INDEX IF EXISTS sbom_node_node_id_covering_idx")
+            .execute_unprepared("DROP INDEX CONCURRENTLY IF EXISTS sbom_node_node_id_covering_idx")
             .await
             .map(|_| ())?;
 
         manager
             .get_connection()
-            .execute_unprepared("DROP INDEX IF EXISTS sbom_covering_published_idx")
+            .execute_unprepared("DROP INDEX CONCURRENTLY IF EXISTS sbom_covering_published_idx")
             .await
             .map(|_| ())?;
 
