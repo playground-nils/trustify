@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1774256466120,
+  "lastUpdate": 1774517400112,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -17978,6 +17978,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "6f37eb51e51baeb069efaa732665b983d3882577",
+          "message": "build(deps): bump picomatch in /docs/book\n\nBumps  and [picomatch](https://github.com/micromatch/picomatch). These dependencies needed to be updated together.\n\nUpdates `picomatch` from 2.3.1 to 2.3.2\n- [Release notes](https://github.com/micromatch/picomatch/releases)\n- [Changelog](https://github.com/micromatch/picomatch/blob/master/CHANGELOG.md)\n- [Commits](https://github.com/micromatch/picomatch/compare/2.3.1...2.3.2)\n\nUpdates `picomatch` from 4.0.2 to 4.0.4\n- [Release notes](https://github.com/micromatch/picomatch/releases)\n- [Changelog](https://github.com/micromatch/picomatch/blob/master/CHANGELOG.md)\n- [Commits](https://github.com/micromatch/picomatch/compare/2.3.1...2.3.2)\n\n---\nupdated-dependencies:\n- dependency-name: picomatch\n  dependency-version: 2.3.2\n  dependency-type: indirect\n- dependency-name: picomatch\n  dependency-version: 4.0.4\n  dependency-type: indirect\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2026-03-26T08:32:55Z",
+          "tree_id": "56a7f8b1f99398b227c650fef9617e4df4d1493f",
+          "url": "https://github.com/guacsec/trustify/commit/6f37eb51e51baeb069efaa732665b983d3882577"
+        },
+        "date": 1774517398234,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 10,
             "unit": "s"
           }
         ]
