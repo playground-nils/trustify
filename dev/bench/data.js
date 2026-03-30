@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1774599577736,
+  "lastUpdate": 1774874236994,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18036,6 +18036,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 10,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "noah@santschi-cooney.ch",
+            "name": "Noah Santschi-Cooney",
+            "username": "Strum355"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "f839bb43e369c12ba5ddd9646b9797c7ecb6c2cb",
+          "message": "chore: remove RemediationSummary.id from API and mark RemediationSummary.data is internal-only",
+          "timestamp": "2026-03-30T11:47:27Z",
+          "tree_id": "bc6302e853da9b96d000b84b8e113085a637dce8",
+          "url": "https://github.com/guacsec/trustify/commit/f839bb43e369c12ba5ddd9646b9797c7ecb6c2cb"
+        },
+        "date": 1774874234796,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
             "unit": "s"
           }
         ]
