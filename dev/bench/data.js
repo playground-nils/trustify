@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1774874236994,
+  "lastUpdate": 1774964359095,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18060,6 +18060,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/guacsec/trustify/commit/f839bb43e369c12ba5ddd9646b9797c7ecb6c2cb"
         },
         "date": 1774874234796,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "705e1ae5e19198ff9d937288190333958e5b1a46",
+          "message": "docs: improve openapi spec",
+          "timestamp": "2026-03-31T12:43:49Z",
+          "tree_id": "59d2d25b5d4a93a1cfcac9b289ed81fa7ff3a56e",
+          "url": "https://github.com/guacsec/trustify/commit/705e1ae5e19198ff9d937288190333958e5b1a46"
+        },
+        "date": 1774964357802,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
