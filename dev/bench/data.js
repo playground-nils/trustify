@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775489245144,
+  "lastUpdate": 1775512980547,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18118,6 +18118,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/guacsec/trustify/commit/b0753ef0aea9f6942a94b4432a7114599aed3665"
         },
         "date": 1775489243495,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "00hf11@gmail.com",
+            "name": "Helio Frota",
+            "username": "helio-frota"
+          },
+          "distinct": true,
+          "id": "b79699eb51d3a1ff25be87d829d637698b80525d",
+          "message": "build(deps): bump brace-expansion from 1.1.12 to 1.1.13 in /docs/book\n\nBumps [brace-expansion](https://github.com/juliangruber/brace-expansion) from 1.1.12 to 1.1.13.\n- [Release notes](https://github.com/juliangruber/brace-expansion/releases)\n- [Commits](https://github.com/juliangruber/brace-expansion/compare/v1.1.12...v1.1.13)\n\n---\nupdated-dependencies:\n- dependency-name: brace-expansion\n  dependency-version: 1.1.13\n  dependency-type: indirect\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2026-04-06T21:08:29Z",
+          "tree_id": "d53821bf649de44290d56cb500774fd71693a628",
+          "url": "https://github.com/guacsec/trustify/commit/b79699eb51d3a1ff25be87d829d637698b80525d"
+        },
+        "date": 1775512979672,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
