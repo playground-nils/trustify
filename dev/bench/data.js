@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1774964359095,
+  "lastUpdate": 1775489245144,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18089,6 +18089,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/guacsec/trustify/commit/705e1ae5e19198ff9d937288190333958e5b1a46"
         },
         "date": 1774964357802,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "00hf11@gmail.com",
+            "name": "Helio Frota",
+            "username": "helio-frota"
+          },
+          "distinct": true,
+          "id": "b0753ef0aea9f6942a94b4432a7114599aed3665",
+          "message": "build(deps): bump tar from 0.4.44 to 0.4.45\n\nBumps [tar](https://github.com/alexcrichton/tar-rs) from 0.4.44 to 0.4.45.\n- [Commits](https://github.com/alexcrichton/tar-rs/compare/0.4.44...0.4.45)\n\n---\nupdated-dependencies:\n- dependency-name: tar\n  dependency-version: 0.4.45\n  dependency-type: direct:production\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2026-04-06T14:32:14Z",
+          "tree_id": "df067456fe49f5207a1dda767bb5775c452624b8",
+          "url": "https://github.com/guacsec/trustify/commit/b0753ef0aea9f6942a94b4432a7114599aed3665"
+        },
+        "date": 1775489243495,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
