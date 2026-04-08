@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775571547285,
+  "lastUpdate": 1775644516387,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18176,6 +18176,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/guacsec/trustify/commit/fd96ef09b489aae2e46fdab0f4aeff10333d7e85"
         },
         "date": 1775571545360,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 10,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "255cec311a1036dae63fc7f8e5038fe5e5a541b6",
+          "message": "chore: update dependencies\n\nThis required a change to OSV, as the \"affected\" field is now\n`Option<Vec<_>>` instead of just `Vec<_>`.\n\nThe sha2 implemention dropped the `LowerHex` trait, requiring to use\n`HexDisplay` as a replacement: https://github.com/RustCrypto/hashes/issues/102#issuecomment-4151308396",
+          "timestamp": "2026-04-08T09:38:26Z",
+          "tree_id": "1f51af0d26d2b078a14e1cbe99430feffd9a9430",
+          "url": "https://github.com/guacsec/trustify/commit/255cec311a1036dae63fc7f8e5038fe5e5a541b6"
+        },
+        "date": 1775644514593,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
