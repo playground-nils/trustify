@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775644516387,
+  "lastUpdate": 1775733764374,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18210,6 +18210,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 10,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rromerom@redhat.com",
+            "name": "Ruben Romero Montes",
+            "username": "ruromero"
+          },
+          "committer": {
+            "email": "rromerom@redhat.com",
+            "name": "Ruben Romero Montes",
+            "username": "ruromero"
+          },
+          "distinct": true,
+          "id": "8533cde083b6e00916a84763ee6d318d80bedecf",
+          "message": "refactor: fix instrumentation patterns per review feedback\n\n- Remove redundant .instrument() wrappers on self-calls that already\n  have #[instrument] attributes\n- Use skip_all and err(level=INFO) per log_tracing.md conventions\n- Accept impl IntoIterator instead of &[Uuid] to avoid intermediate\n  allocations\n- Add instrumentation spans to SeaORM load_one/load_many_to_many calls\n- Use HashMap<_, _> type inference for base_purl_map\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+          "timestamp": "2026-04-09T10:45:49Z",
+          "tree_id": "780bf1c92ce64aa770500dd0845fdb06217d9942",
+          "url": "https://github.com/guacsec/trustify/commit/8533cde083b6e00916a84763ee6d318d80bedecf"
+        },
+        "date": 1775733762928,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
             "unit": "s"
           }
         ]
