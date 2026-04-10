@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775733764374,
+  "lastUpdate": 1775813046048,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18234,6 +18234,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/guacsec/trustify/commit/8533cde083b6e00916a84763ee6d318d80bedecf"
         },
         "date": 1775733762928,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "6db7892e2d8835fc21ca8a22a82f852f86c450b1",
+          "message": "chore: drop old cvss(3) module",
+          "timestamp": "2026-04-10T08:35:06Z",
+          "tree_id": "54a107406179ce58d21f425aae0fb868e2429083",
+          "url": "https://github.com/guacsec/trustify/commit/6db7892e2d8835fc21ca8a22a82f852f86c450b1"
+        },
+        "date": 1775813043688,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
