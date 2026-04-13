@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775813046048,
+  "lastUpdate": 1776099098555,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18263,6 +18263,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/guacsec/trustify/commit/6db7892e2d8835fc21ca8a22a82f852f86c450b1"
         },
         "date": 1775813043688,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "00hf11@gmail.com",
+            "name": "Helio Frota",
+            "username": "helio-frota"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "0ca2293aa5d3ddc8c7461fb7b87b4634d9f4b411",
+          "message": "fix: validate CVSS v2 score range\n\nCVSS v2 scores must be in the range [0.0, 10.0]. This adds validation\nto reject invalid scores and return None, matching the original behavior\nbefore the refactoring.\n\nFixes test: extract_base_score_cases::v2_out_of_range_yields_none\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+          "timestamp": "2026-04-13T16:06:41Z",
+          "tree_id": "706a9b40c17ae5b79445989206511cc5fb4aeaa8",
+          "url": "https://github.com/guacsec/trustify/commit/0ca2293aa5d3ddc8c7461fb7b87b4634d9f4b411"
+        },
+        "date": 1776099096794,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
