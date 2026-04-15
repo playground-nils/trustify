@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1776171786784,
+  "lastUpdate": 1776247557101,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18326,6 +18326,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 10,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rromerom@redhat.com",
+            "name": "Ruben Romero Montes",
+            "username": "ruromero"
+          },
+          "committer": {
+            "email": "rromerom@redhat.com",
+            "name": "Ruben Romero Montes",
+            "username": "ruromero"
+          },
+          "distinct": false,
+          "id": "baed75ced58bbb2f33f6dd31b65bf9faa62cdace",
+          "message": "Simplify purl_status and product_status indexes to single-column (advisory_id)\n\nThe composite indexes were not justified: ingest_package_status() is\nalready covered by package_status_idx(base_purl_id, advisory_id, status_id),\nand the vulnerability detail query filters by vulnerability_id only.\nAll three indexes now target advisory_id alone for CASCADE delete performance.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+          "timestamp": "2026-04-15T09:08:22Z",
+          "tree_id": "a3664bd5a218d17574597f7a13c0bd90c9df5e60",
+          "url": "https://github.com/guacsec/trustify/commit/baed75ced58bbb2f33f6dd31b65bf9faa62cdace"
+        },
+        "date": 1776247555868,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
             "unit": "s"
           }
         ]
