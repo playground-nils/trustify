@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1776440616463,
+  "lastUpdate": 1776679906627,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18442,6 +18442,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 9,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "31224e98d4b71116e1d0f49de7012d83a5b5bd6b",
+          "message": "docs: fix readme, use repo license file",
+          "timestamp": "2026-04-20T09:21:26Z",
+          "tree_id": "a92e62652517bd6381dcde7a0a35a24baef67953",
+          "url": "https://github.com/guacsec/trustify/commit/31224e98d4b71116e1d0f49de7012d83a5b5bd6b"
+        },
+        "date": 1776679904733,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 7,
             "unit": "s"
           }
         ]
