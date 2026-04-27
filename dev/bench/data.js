@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777064015622,
+  "lastUpdate": 1777311287808,
   "repoUrl": "https://github.com/guacsec/trustify",
   "entries": {
     "Benchmark": [
@@ -18529,6 +18529,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 10,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "committer": {
+            "email": "ctron@dentrassi.de",
+            "name": "Jens Reimann",
+            "username": "ctron"
+          },
+          "distinct": true,
+          "id": "2dfe3698ff011370e8593f1621a1588ba0bd9c6c",
+          "message": "chore: make ReadOnlyState implement Copy\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+          "timestamp": "2026-04-27T17:04:55Z",
+          "tree_id": "23dd0169a006b7722301000f739f8fd36bf4d1d3",
+          "url": "https://github.com/guacsec/trustify/commit/2dfe3698ff011370e8593f1621a1588ba0bd9c6c"
+        },
+        "date": 1777311285859,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 9,
             "unit": "s"
           }
         ]
