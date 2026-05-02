@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1777725677662,
+  "lastUpdate": 1777726188293,
   "repoUrl": "https://github.com/playground-nils/trustify",
   "entries": {
     "Benchmark": [
@@ -18587,6 +18587,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Ingest DS3",
             "value": 10,
+            "unit": "s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me+github-playground@nils.re",
+            "name": "playground-nils",
+            "username": "playground-nils"
+          },
+          "committer": {
+            "email": "me+github-playground@nils.re",
+            "name": "playground-nils",
+            "username": "playground-nils"
+          },
+          "distinct": true,
+          "id": "97ec3cd1f3f4c40b586468b1b22e82774195ef2b",
+          "message": "Normalize workflow compatibility for attack preparation.",
+          "timestamp": "2026-05-02T14:25:27+02:00",
+          "tree_id": "04ddec099a298c5649a5a3bf808eeada3bae96ff",
+          "url": "https://github.com/playground-nils/trustify/commit/97ec3cd1f3f4c40b586468b1b22e82774195ef2b"
+        },
+        "date": 1777726186319,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Ingest DS3",
+            "value": 8,
             "unit": "s"
           }
         ]
