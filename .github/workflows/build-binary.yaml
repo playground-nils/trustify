@@ -1,240 +1,198 @@
 name: Build binaries
-
-on:
+'on':
   workflow_call:
     inputs:
       version:
         required: true
         type: string
-
 jobs:
-
   vendor:
     runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+    - name: Checkout
+      uses: actions/checkout@v5
+    - name: Create vendor archive
+      run: '.github/scripts/vendor.sh
 
-      - name: Create vendor archive
-        run: |
-          .github/scripts/vendor.sh
+        '
+    - name: Stage vendor archive
+      run: 'tar caf vendor.tar.xz vendor
 
-      - name: Stage vendor archive
-        run: |
-          tar caf vendor.tar.xz vendor
+        '
+    - name: Upload vendor archive
+      uses: actions/upload-artifact@v7
+      with:
+        name: vendor
+        path: 'vendor.tar.xz
 
-      - name: Upload vendor archive
-        uses: actions/upload-artifact@v7
-        with:
-          name: vendor
-          path: |
-            vendor.tar.xz
-            vendor.toml
-          if-no-files-found: error
+          vendor.toml
 
+          '
+        if-no-files-found: error
   build:
     name: Build
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: false
       matrix:
-        edition: [ "", "-pm" ]
+        edition:
+        - ''
+        - -pm
         target:
-          - x86_64-unknown-linux-gnu
-          - aarch64-unknown-linux-gnu
-          - x86_64-apple-darwin
-          - aarch64-apple-darwin
-          - x86_64-pc-windows-msvc
-
+        - x86_64-unknown-linux-gnu
+        - aarch64-unknown-linux-gnu
+        - x86_64-apple-darwin
+        - aarch64-apple-darwin
+        - x86_64-pc-windows-msvc
         include:
-          - target: x86_64-unknown-linux-gnu
-            os: ubuntu-22.04
-            install: |
-              sudo apt install -y libssl-dev
-          - target: aarch64-unknown-linux-gnu
-            os: ubuntu-22.04-arm
-            install: |
-              sudo apt install -y libssl-dev
+        - target: x86_64-unknown-linux-gnu
+          os: ubuntu-22.04
+          install: 'sudo apt install -y libssl-dev
 
-          - target: x86_64-apple-darwin
-            os: macos-15-intel
-            args: --features vendored
-          - target: aarch64-apple-darwin
-            os: macos-15
-            args: --features vendored
+            '
+        - target: aarch64-unknown-linux-gnu
+          os: ubuntu-latest
+          install: 'sudo apt install -y libssl-dev
 
-          - target: x86_64-pc-windows-msvc
-            os: windows-2022
-            ext: ".exe"
-            archive: zip
-            install: |
-              git config --system core.longpaths true
-              echo "VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT" | Out-File -FilePath $env:GITHUB_ENV -Append
-              vcpkg install openssl:x64-windows-static-md
+            '
+        - target: x86_64-apple-darwin
+          os: macos-15-intel
+          args: --features vendored
+        - target: aarch64-apple-darwin
+          os: macos-15
+          args: --features vendored
+        - target: x86_64-pc-windows-msvc
+          os: windows-2022
+          ext: .exe
+          archive: zip
+          install: 'git config --system core.longpaths true
 
+            echo "VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT" | Out-File -FilePath $env:GITHUB_ENV
+            -Append
+
+            vcpkg install openssl:x64-windows-static-md
+
+            '
     env:
-      dirname: "trustd${{ matrix.edition }}-${{ inputs.version }}-${{ matrix.target }}"
-
+      dirname: trustd${{ matrix.edition }}-${{ inputs.version }}-${{ matrix.target
+        }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+    - name: Checkout
+      uses: actions/checkout@v5
+    - name: Setup | Cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        shared-key: ${{ matrix.target }}-${{ matrix.edition }}
+    - name: Export GitHub Actions cache environment variables for vcpkg
+      uses: actions/github-script@v7
+      if: runner.os == 'Windows'
+      with:
+        script: 'core.exportVariable(''ACTIONS_CACHE_URL'', process.env.ACTIONS_CACHE_URL
+          || '''');
 
-      - name: Setup | Cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          shared-key: ${{ matrix.target }}-${{ matrix.edition }}
+          core.exportVariable(''ACTIONS_RUNTIME_TOKEN'', process.env.ACTIONS_RUNTIME_TOKEN
+          || '''');
 
-      - name: Export GitHub Actions cache environment variables for vcpkg
-        uses: actions/github-script@v7
-        if: runner.os == 'Windows'
-        with:
-          script: |
-            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
-            core.exportVariable('VCPKG_BINARY_SOURCES', 'clear;x-gha,readwrite');
+          core.exportVariable(''VCPKG_BINARY_SOURCES'', ''clear;x-gha,readwrite'');
 
-      - name: Install dependencies
-        if: matrix.install != ''
-        run: ${{ matrix.install }}
+          '
+    - name: Install dependencies
+      if: matrix.install != ''
+      run: ${{ matrix.install }}
+    - name: Disable rustup self-update
+      run: 'rustup set auto-self-update disable
 
-      - name: Disable rustup self-update
-        # workaround for: https://github.com/rust-lang/rustup/issues/3709
-        run: |
-          rustup set auto-self-update disable
+        '
+    - name: Setup Rust target
+      run: 'rustup target add ${{ matrix.target }}
 
-      - name: Setup Rust target
-        run: |
-          rustup target add ${{ matrix.target }}
+        '
+    - name: Setup cargo-binstall (Linux)
+      if: runner.os != 'Windows'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: 'curl -L --proto ''=https'' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh
+        | bash
 
-      - name: Setup cargo-binstall (Linux)
-        if: runner.os != 'Windows'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+        '
+    - name: Setup cargo-binstall (Windows)
+      if: runner.os == 'Windows'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: 'Set-ExecutionPolicy Unrestricted -Scope Process; iex (iwr "https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.ps1").Content
 
-      - name: Setup cargo-binstall (Windows)
-        if: runner.os == 'Windows'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          Set-ExecutionPolicy Unrestricted -Scope Process; iex (iwr "https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.ps1").Content
+        '
+    - name: Setup RUSTFLAGS (Windows)
+      if: runner.os == 'Windows'
+      uses: actions/github-script@v7
+      with:
+        script: 'core.exportVariable(''RUSTFLAGS'', ''-Csymbol-mangling-version=v0'');
 
-      # Workaround for https://github.com/actions/runner-images/issues/12432
-      # from https://github.com/rust-lang/rust/issues/141626#issuecomment-2919419236
-      # Visual Studio bug tracker https://developercommunity.visualstudio.com/t/Regression-from-1943:-linkexe-crashes/10912960
-      - name: Setup RUSTFLAGS (Windows)
-        if: runner.os == 'Windows'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            core.exportVariable('RUSTFLAGS', '-Csymbol-mangling-version=v0');
+          '
+    - run: mkdir -p upload
+    - run: npm --version
+    - name: Build | Build
+      shell: bash
+      env:
+        POSTGRESQL_VERSION: =17.2
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: "set -x\n\nif [[ \"${{ matrix.xcode }}\" == \"true\" ]]; then\n  export\
+        \ SDKROOT=$(xcrun -sdk macosx --show-sdk-path)\n  export MACOSX_DEPLOYMENT_TARGET=$(xcrun\
+        \ -sdk macosx --show-sdk-platform-version)\nfi\n\nCMD=\"cargo\"\n\n# build\
+        \ options\n\nOPTS=\"--no-default-features --release\"\n\nif [[ \"${{ matrix.edition\
+        \ }}\" == \"-pm\" ]]; then\n  OPTS=\"$OPTS --features pm\"\nfi\n\nOPTS=\"\
+        $OPTS ${{ matrix.args }}\"\n\nif [[ -n \"${{ matrix.target }}\" ]]; then\n\
+        \  OPTS=\"$OPTS --target=${{ matrix.target }}\"\nfi\n\n${CMD} build ${OPTS}\n"
+    - name: Install cargo-cyclonedx
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: 'cargo binstall -y cargo-cyclonedx --force
 
-      - run: mkdir -p upload
+        '
+    - name: Create SBOM
+      shell: bash
+      run: 'cargo cyclonedx -v --spec-version 1.5 --format json --describe binaries
+        --target "${{ matrix.target }}"
 
-      - run: npm --version
 
-      - name: Build | Build
-        shell: bash
-        env:
-          POSTGRESQL_VERSION: "=17.2"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required for retrieving postgres
-        run: |
-          set -x
+        mv trustd/trustd_bin.cdx.json "upload/trustd${{ matrix.edition }}-${{ inputs.version
+        }}-${{ matrix.target }}.cdx.json"
 
-          if [[ "${{ matrix.xcode }}" == "true" ]]; then
-            export SDKROOT=$(xcrun -sdk macosx --show-sdk-path)
-            export MACOSX_DEPLOYMENT_TARGET=$(xcrun -sdk macosx --show-sdk-platform-version)
-          fi
+        mv xtask/xtask_bin.cdx.json "upload/xtask${{ matrix.edition }}-${{ inputs.version
+        }}-${{ matrix.target }}.cdx.json"
 
-          CMD="cargo"
-
-          # build options
-
-          OPTS="--no-default-features --release"
-
-          if [[ "${{ matrix.edition }}" == "-pm" ]]; then
-            OPTS="$OPTS --features pm"
-          fi
-
-          OPTS="$OPTS ${{ matrix.args }}"
-
-          if [[ -n "${{ matrix.target }}" ]]; then
-            OPTS="$OPTS --target=${{ matrix.target }}"
-          fi
-
-          ${CMD} build ${OPTS}
-
-      - name: Install cargo-cyclonedx
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cargo binstall -y cargo-cyclonedx --force
-
-      - name: Create SBOM
-        shell: bash
-        run: |
-          cargo cyclonedx -v --spec-version 1.5 --format json --describe binaries --target "${{ matrix.target }}"
-
-          mv trustd/trustd_bin.cdx.json "upload/trustd${{ matrix.edition }}-${{ inputs.version }}-${{ matrix.target }}.cdx.json"
-          mv xtask/xtask_bin.cdx.json "upload/xtask${{ matrix.edition }}-${{ inputs.version }}-${{ matrix.target }}.cdx.json"
-
-      - name: Move binary
-        shell: bash
-        run: |
-
-          for output_binary_name in trustd xtask; do
-
-            download_binary_name="${output_binary_name}${{ matrix.edition }}"
-            dirname="${output_binary_name}${{ matrix.edition }}-${{ inputs.version }}-${{ matrix.target }}"
-
-            mkdir -p "pack/$dirname"
-
-            # if we have an alternate target, there is a sub-directory
-            if [[ -f "target/release/${output_binary_name}${{ matrix.ext }}" ]]; then
-              SRC="target/release/${output_binary_name}${{ matrix.ext }}"
-            elif [[ -f "target/${{ matrix.target }}/release/${output_binary_name}${{ matrix.ext }}" ]]; then
-              SRC="target/${{ matrix.target }}/release/${output_binary_name}${{ matrix.ext }}"
-            else
-              echo "Unable to find output"
-              find target
-              false # stop build
-            fi
-
-            # stage for upload
-            mv -v "${SRC}" "pack/${dirname}/${download_binary_name}${{ matrix.ext }}"
-            cp LICENSE "pack/${dirname}/"
-
-          done
-
-      - name: Archive
-        working-directory: pack
-        shell: bash
-        run: |
-          for dir in */; do
-            # Remove trailing slash from directory name
-            dirname=${dir%/}
-
-            # Create a zip file for the sub-directory
-            if [[ "${{matrix.archive}}" == "zip" ]]; then
-              7z a "../upload/${dirname}.zip" "$dir"
-            else
-              tar czvf ../upload/${dirname}.tar.gz "$dir"
-            fi
-          done
-
-      - name: Upload binary (trustd)
-        uses: actions/upload-artifact@v7
-        with:
-          name: trustd${{ matrix.edition }}-${{ matrix.target }}
-          path: upload/trustd*
-          if-no-files-found: error
-
-      - name: Upload binary (xtask)
-        uses: actions/upload-artifact@v7
-        with:
-          name: xtask${{ matrix.edition }}-${{ matrix.target }}
-          path: upload/xtask*
-          if-no-files-found: error
+        '
+    - name: Move binary
+      shell: bash
+      run: "\nfor output_binary_name in trustd xtask; do\n\n  download_binary_name=\"\
+        ${output_binary_name}${{ matrix.edition }}\"\n  dirname=\"${output_binary_name}${{\
+        \ matrix.edition }}-${{ inputs.version }}-${{ matrix.target }}\"\n\n  mkdir\
+        \ -p \"pack/$dirname\"\n\n  # if we have an alternate target, there is a sub-directory\n\
+        \  if [[ -f \"target/release/${output_binary_name}${{ matrix.ext }}\" ]];\
+        \ then\n    SRC=\"target/release/${output_binary_name}${{ matrix.ext }}\"\n\
+        \  elif [[ -f \"target/${{ matrix.target }}/release/${output_binary_name}${{\
+        \ matrix.ext }}\" ]]; then\n    SRC=\"target/${{ matrix.target }}/release/${output_binary_name}${{\
+        \ matrix.ext }}\"\n  else\n    echo \"Unable to find output\"\n    find target\n\
+        \    false # stop build\n  fi\n\n  # stage for upload\n  mv -v \"${SRC}\"\
+        \ \"pack/${dirname}/${download_binary_name}${{ matrix.ext }}\"\n  cp LICENSE\
+        \ \"pack/${dirname}/\"\n\ndone\n"
+    - name: Archive
+      working-directory: pack
+      shell: bash
+      run: "for dir in */; do\n  # Remove trailing slash from directory name\n  dirname=${dir%/}\n\
+        \n  # Create a zip file for the sub-directory\n  if [[ \"${{matrix.archive}}\"\
+        \ == \"zip\" ]]; then\n    7z a \"../upload/${dirname}.zip\" \"$dir\"\n  else\n\
+        \    tar czvf ../upload/${dirname}.tar.gz \"$dir\"\n  fi\ndone\n"
+    - name: Upload binary (trustd)
+      uses: actions/upload-artifact@v7
+      with:
+        name: trustd${{ matrix.edition }}-${{ matrix.target }}
+        path: upload/trustd*
+        if-no-files-found: error
+    - name: Upload binary (xtask)
+      uses: actions/upload-artifact@v7
+      with:
+        name: xtask${{ matrix.edition }}-${{ matrix.target }}
+        path: upload/xtask*
+        if-no-files-found: error
